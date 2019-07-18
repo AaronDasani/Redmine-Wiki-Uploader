@@ -1,0 +1,53 @@
+
+<div class="container">
+    <h1 class="text-center mb-5 mt-3 bg-dark p-3 text-light shadow col-11">Wiki Page Uploader</h1>
+
+   
+    <div class="ApiResponse fixed-top text-center" style="display:none">
+        <a class="deleteBtn ">x</a>
+        <div></div>
+    </div>
+
+    <div class="mb-4">
+        <div class="form-group text-center">
+            <%# <label for="projectName" class='font-weight-bold text-dark'>Project Name</label> %>
+            <%# <input type="text" name="projectName" class="form-control col-6 mx-auto" id="projectName" placeholder="Enter project name"> %>
+            <div class="form-group">
+               <label for="projectName" class='font-weight-bold text-dark'>Project Name</label>
+                <select class="form-control col-6 mx-auto font-weight-bold" id="projectName"  name="projectName" value="asdasd">
+                    <%for p in @projects do%>
+                        <option class="font-weight-bold"><%=p%></option>
+                    <%end%>
+                </select>
+            </div>
+            <small class="form-text text-muted ">Make sure the project name is correctly entered</small>
+        </div>
+    </div>
+    <div>
+        <div class="file-upload text-light col-8 mx-auto">
+            <section class="rounded p-4 ">
+                <div id="documents-drop-area" class="drop-area p-3 text-center ">
+                    <p >Drag and drop files</p>
+                   <small class="text-muted font-weight-light">.docx and.txt files only</small>
+                </div>
+                <hr>
+                <small>
+                        <form class="my-form text-left" id="fileUpload">
+                            <div class="custom-file">
+                                <input name="files[]" type="file" multiple accept="*"  class="custom-file-input">
+                                <label class="custom-file-label font-weight-bold" for="customFile">Choose files</label>
+                            </div>
+                        </form>
+                    </small>
+            </section>
+
+        </div>
+    </div>
+    <hr>
+    <div id="wikipages" class="mt-3 row mx-auto"></div>
+    <div class="col-12 text-center mt-3">
+        <button class="btn btn-dark shadow p-2 text-light col-9 font-weight-bold submitBTN"><h3>Create Wiki Page</h3></button>
+    </div>
+
+
+</div>
