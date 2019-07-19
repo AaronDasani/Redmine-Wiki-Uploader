@@ -3,7 +3,8 @@ require 'json'
 require 'rest_client'
 require 'uri' # for escaping page titles
 require 'pandoc-ruby'
-require 'docx/html'
+require 'docx'
+
 
 # !!!!!Make sure to inlcude the Redmine API key and your own Redmine URL in the application_controller.rb file !!!!
 
@@ -120,8 +121,8 @@ class WikiController < ApplicationController
       content = Docx::Document.open(file_url)
       # ---convert html to textile
       file_content=PandocRuby.convert(content.to_html, :from => :html, :to => :textile)
-      file_content.gsub! '&#45;', '-'
-
+      file_content.gsub! '\n', ''
+      
     elsif extension===".txt"
       # Just read te plain text.. No conversion need to be done here. move along ...choo! choo!
       file_content=File.read(file_url)
