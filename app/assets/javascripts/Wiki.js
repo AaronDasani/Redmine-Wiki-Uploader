@@ -96,9 +96,11 @@ $(document).ready(function(){
 
 
     function createWikiPagePreview(newWikiPages,updateWikiPreview=false){
+  
         if(updateWikiPreview===true){$("#wikipages")[0].innerHTML=""}
 
         newWikiPages.forEach(wiki=>{
+            let wikiContainer=""
             if(allowedTypes.indexOf(wiki.documents.type)<0)
             {
                 wiki.error=true;
@@ -111,24 +113,28 @@ $(document).ready(function(){
                     const img = document.createElement('img')
                     img.src = reader.result
                     img.classList.add('image','card-img')
-                    const wikiContainer=createWikiContainer(img,"imageContainer",wiki.id,wiki.documents.name,error=wiki.error)
-                    $("#wikipages").append(wikiContainer)
+                    wikiContainer=createWikiContainer(img,"imageContainer",wiki.id,wiki.documents.name,error=wiki.error)
                 }
             }
             else{
                 const paragraph=document.createElement('p')
                 paragraph.innerText=wiki.documents.name
                 paragraph.classList.add('filename','font-weight-light','card-img')
-                const wikiContainer=createWikiContainer(paragraph,"fileContainer",wiki.id,wiki.documents.name,error=wiki.error)
-                $("#wikipages").append(wikiContainer)
+                wikiContainer=createWikiContainer(paragraph,"fileContainer",wiki.id,wiki.documents.name,error=wiki.error)
+            }
+            $("#wikipages").append(wikiContainer)
+            if(wiki.attachments.length>0)
+            {
+                const AttachmentContainer= $("#wikipages").children().last().children().children().last().children().children(".AttachmentsContainer");
+                createAttachmentPreview(wiki.attachments,AttachmentContainer,wiki.id)
             }
     
         })
+        
     }
 
     function createAttachmentPreview(new_files,attachmentContainer,wikiID,attachmentUpdate=false){
         if(attachmentUpdate===true) {attachmentContainer[0].innerHTML="";}
-
         new_files.forEach(file=>{
             if (file.type==="image/png" || file.type==="image/jpeg") {
                 let reader = new FileReader()
@@ -138,7 +144,7 @@ $(document).ready(function(){
                     const img = document.createElement('img')
                     img.src = reader.result
                     img.classList.add('AttachmentImage')
-
+                   
                     const FileContainer=createFileContainerElement(img,file.name,attachmentContainer,wikiID)
                     attachmentContainer.append(FileContainer)
                 }
@@ -156,7 +162,7 @@ $(document).ready(function(){
 
     // Handling Drop Filessss
     function handleDrop(event) {
-        let previewFiles;
+        let previewFiles=[];
         try {
             let dt = event.originalEvent.dataTransfer
             let the_files = dt.files
@@ -191,7 +197,6 @@ $(document).ready(function(){
             let new_files=handleDrop(event)
             let newWikiPages=[]
             new_files.forEach(file=>{
-                console.log(file.type)
                 let wiki_page=new WikiPage();
                 wiki_page.id=WikiPagesList.length+1;
                 wiki_page.documents=file
@@ -200,7 +205,6 @@ $(document).ready(function(){
 
             })
             createWikiPagePreview(newWikiPages)
-            console.log(WikiPagesList)
         }
         
     // If user wants to chnage the title of the Wiki Page
@@ -233,7 +237,6 @@ $(document).ready(function(){
 
     // Delete a Wiki Page 
     function deleteWikiPage(wikiID){
-
         for (let i = 0; i < WikiPagesList.length; i++) {
             if( WikiPagesList[i].id===wikiID)
             {
