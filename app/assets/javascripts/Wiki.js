@@ -197,6 +197,7 @@ $(document).ready(function(){
             let new_files=handleDrop(event)
             let newWikiPages=[]
             new_files.forEach(file=>{
+                console.log(file)
                 let wiki_page=new WikiPage();
                 wiki_page.id=WikiPagesList.length+1;
                 wiki_page.documents=file

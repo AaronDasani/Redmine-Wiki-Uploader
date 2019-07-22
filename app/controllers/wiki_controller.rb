@@ -13,7 +13,7 @@ class WikiController < ApplicationController
 
   def index
     @@table_of_content.clear()
-    @projects=["Testing","Absolute-Syteline-Migration","Vaction"]
+    @projects=["Testing","Absolute-Syteline-Migration","Vaction", "AMT-Syteline-Upgrade"]
   end
 
   def create
@@ -47,7 +47,7 @@ class WikiController < ApplicationController
 
     # This is optional but it make the wiki page better in redmine, as it create a table to content with links to the other wiki pages.
     # That is good for better navigation. Also we calling this only once when all wiki pages are finished uploading.
-    @@table_of_content+="\r\n\r\nh2. [[#{file_title}]]"
+    @@table_of_content+="\r\n\r\n## [[#{file_title}]]"
     params[:lastItem]&& UpdateWikiTableContent(project_name,@@table_of_content)
 
     render json: {:response=> "<small class='text-success font-weight-bold'>#{file.original_filename} Wiki Page was successfully created</small>"}
@@ -114,15 +114,12 @@ class WikiController < ApplicationController
   def convertFile(extension,file_url)
   
     # convert file differently depending on the file extension
-    p file_url
     file_content=""
     if extension===".docx"
-      # ---convert docx to html
-      content = Docx::Document.open(file_url)
-      # ---convert html to textile
-      file_content=PandocRuby.convert(content.to_html, :from => :html, :to => :textile)
-      file_content.gsub! '\n', ''
-      
+      file_content=PandocRuby.convert([file_url], :from=> :docx, :to=> :markdown)
+      # file_content=PolishTheFile(file_content)
+      file_content.gsub!("![](media/","![](")
+
     elsif extension===".txt"
       # Just read te plain text.. No conversion need to be done here. move along ...choo! choo!
       file_content=File.read(file_url)
@@ -144,12 +141,11 @@ class WikiController < ApplicationController
         wikiVersion=startPage["wiki_page"]["version"]
         UpdateWiki(wiki_url,wikiContent,wikiVersion)
       when 404
-        wikiContent="h1. Table of Content"+ wikiTitles
+        wikiContent="# Table of Content"+ wikiTitles
         UpdateWiki(wiki_url,wikiContent,1)
       when 409
         p "Error #{response.code}. Might be the version of the wiki you are trying to update."
       end
     }
   end
-
 end
