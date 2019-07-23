@@ -13,7 +13,7 @@ class WikiController < ApplicationController
 
   def index
     @@table_of_content.clear()
-    @projects=["Testing","Absolute-Syteline-Migration","Vaction", "AMT-Syteline-Upgrade"]
+    @projects=["Testing","Vaction", "AMT-Syteline-Upgrade"]
   end
 
   def create

@@ -114,6 +114,7 @@ $(document).ready(function(){
                     img.src = reader.result
                     img.classList.add('image','card-img')
                     wikiContainer=createWikiContainer(img,"imageContainer",wiki.id,wiki.documents.name,error=wiki.error)
+                    $("#wikipages").append(wikiContainer)
                 }
             }
             else{
@@ -121,8 +122,9 @@ $(document).ready(function(){
                 paragraph.innerText=wiki.documents.name
                 paragraph.classList.add('filename','font-weight-light','card-img')
                 wikiContainer=createWikiContainer(paragraph,"fileContainer",wiki.id,wiki.documents.name,error=wiki.error)
+                $("#wikipages").append(wikiContainer)
             }
-            $("#wikipages").append(wikiContainer)
+     
             if(wiki.attachments.length>0)
             {
                 const AttachmentContainer= $("#wikipages").children().last().children().children().last().children().children(".AttachmentsContainer");
@@ -197,7 +199,6 @@ $(document).ready(function(){
             let new_files=handleDrop(event)
             let newWikiPages=[]
             new_files.forEach(file=>{
-                console.log(file)
                 let wiki_page=new WikiPage();
                 wiki_page.id=WikiPagesList.length+1;
                 wiki_page.documents=file
