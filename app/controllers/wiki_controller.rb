@@ -1,9 +1,8 @@
 
 require 'json'
 require 'rest_client'
-require 'uri' # for escaping page titles
+require 'uri'
 require 'pandoc-ruby'
-require 'docx'
 
 
 # !!!!!Make sure to inlcude the Redmine API key and your own Redmine URL in the application_controller.rb file !!!!

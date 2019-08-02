@@ -36,7 +36,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'rest-client', '~> 2.1.0.rc1'
 gem 'pandoc-ruby', '~> 2.0', '>= 2.0.2'
 gem 'rubyzip', '~> 1.2', '>= 1.2.3'
-gem 'docx', '~> 0.3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
