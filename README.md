@@ -46,7 +46,6 @@ This is the Gems I added
     gem 'rest-client', '~> 2.1.0.rc1'
     gem 'pandoc-ruby', '~> 2.0', '>= 2.0.2'
     gem 'rubyzip', '~> 1.2', '>= 1.2.3'
-    gem 'docx', '~> 0.3.0'
 
 # Front-end Dependencies
     Bootstrap cdn (current version-2019)

@@ -24,7 +24,7 @@ $(document).ready(function(){
         $(e.target).parent().hide();
     })
 
-    // Get the current value of the porject name
+    // Get the current value of the project name
     projectName=$("#projectName").val();
 
     // Get the DOM Elements of the drop area and put it in a variable for future use.
