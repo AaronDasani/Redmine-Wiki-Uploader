@@ -67,3 +67,12 @@ The only time we are using Ruby is in the controller. And the framework that you
 So the controller is just getting the data from the front-end, in our case it would be the array of wikiPages. 
 
 So just have to change from ruby to the desired coding language and change the rest api code to the specfification of the company you are posting data to. BOOM that's it, I think.... :)
+
+# Images Limits :(
+One drawback, of the conversion library I am using (Pandoc library), is it is not able to extract the names of the images in the documents files. The conversion library instead replace the images with a simple text such as “image1”, image2, image 3, etc.… So you would have to change the name of the text in the wiki page itself, by clicking on edit
+When you edit the wiki page and look for the image text, it will look like this: `![](image1.png)`.
+#### Change the “image1.png” to the name of the image. And that is it!!
+
+### For example:
+ If the image you have in the document is name “AaronPicture.png”. The conversion library (Pandoc library) will convert the document to a markdown format. As result of the library, the image in the document will be replace with a text such as this:  `![](image1.png)`. 
+When it is uploaded in Redmine, you will have to edit the wiki page and change, `![](image1.png)` to `![]( AaronPicture.png)`

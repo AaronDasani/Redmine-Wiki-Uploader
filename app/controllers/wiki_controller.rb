@@ -12,7 +12,7 @@ class WikiController < ApplicationController
 
   def index
     @@table_of_content.clear()
-    @projects=["Testing","Vaction", "AMT-Syteline-Upgrade"]
+    @projects=["AMT-Syteline-Upgrade"]
   end
 
   def create
@@ -36,7 +36,7 @@ class WikiController < ApplicationController
    
     # File Attachments
     file_Attachments=params[:attachments]
-  
+
     # Sending different request to redmine rest api depending on file attachments
     if(file_Attachments!="undefined")
       uploadWiki_WithAttachment(wiki_url,project_name, file_content,file_title,file_Attachments,file_description)
@@ -115,10 +115,9 @@ class WikiController < ApplicationController
     # convert file differently depending on the file extension
     file_content=""
     if extension===".docx"
-      file_content=PandocRuby.convert([file_url], :from=> :docx, :to=> :markdown)
-      # file_content=PolishTheFile(file_content)
+      file_content=PandocRuby.convert([file_url],:from=> :docx, :to=> :markdown)
       file_content.gsub!("![](media/","![](")
-
+      
     elsif extension===".txt"
       # Just read te plain text.. No conversion need to be done here. move along ...choo! choo!
       file_content=File.read(file_url)
