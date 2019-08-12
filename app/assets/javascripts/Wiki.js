@@ -52,6 +52,7 @@ $(document).ready(function(){
     })
     $(".container").on('change','.file-upload input',(e)=>{
         handleDocumentsDrop(e)
+        e.target.value=null;
     })
     $("#wikipages").on('drop','.attachments-drop-area',(e)=>{
         handleAttachmentDrop(e,$(e.target).data('wiki_id'))
@@ -206,7 +207,9 @@ $(document).ready(function(){
                 newWikiPages.push(wiki_page);
 
             })
+
             createWikiPagePreview(newWikiPages)
+
         }
         
     // If user wants to chnage the title of the Wiki Page
@@ -239,6 +242,7 @@ $(document).ready(function(){
 
     // Delete a Wiki Page 
     function deleteWikiPage(wikiID){
+  
         for (let i = 0; i < WikiPagesList.length; i++) {
             if( WikiPagesList[i].id===wikiID)
             {
@@ -248,7 +252,6 @@ $(document).ready(function(){
         }
 
         createWikiPagePreview(WikiPagesList,true)
-        
     }
     // Delete an Attachment file 
     function deleteFileAttachment(fileName,attachementContainer,wikiID){
